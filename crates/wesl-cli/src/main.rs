@@ -1,4 +1,5 @@
 //! The Command-line interface for `wesl-rs`.
+//! This CLI provides a `--version` flag to show the crate version.
 
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use std::{
@@ -51,12 +52,15 @@ where
 }
 
 #[derive(Parser)]
-#[command(version, author, about)]
+#[command(author, about)]
 #[command(propagate_version = true)]
 struct Cli {
     /// Main command
     #[command(subcommand)]
     command: Command,
+    /// Print version information
+    #[arg(long, version = clap::crate_version!())]
+    version: bool,
 }
 
 #[derive(Subcommand, Clone, Debug)]
